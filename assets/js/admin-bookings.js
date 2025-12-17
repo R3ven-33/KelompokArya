@@ -28,13 +28,24 @@ document.addEventListener('DOMContentLoaded', function() {
             button.addEventListener('click', function() {
                 const bookingId = this.closest('tr').querySelector('td:first-child').textContent;
 
-                // In a real application, this would send confirmation request to the server
-                alert(`Booking ${bookingId} berhasil dikonfirmasi`);
+                // Update booking status in localStorage
+                const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+                const bookingIndex = bookings.findIndex(b => b.id === bookingId);
 
-                // Update status in UI
-                const statusCell = this.closest('tr').querySelector('.badge');
-                statusCell.className = 'badge bg-success';
-                statusCell.textContent = 'Dikonfirmasi';
+                if (bookingIndex !== -1) {
+                    bookings[bookingIndex].status = 'confirmed';
+                    localStorage.setItem('bookings', JSON.stringify(bookings));
+
+                    alert(`Booking ${bookingId} berhasil dikonfirmasi`);
+
+                    // Update status in UI
+                    const statusCell = this.closest('tr').querySelector('.badge');
+                    statusCell.className = 'badge bg-success';
+                    statusCell.textContent = 'Dikonfirmasi';
+
+                    // Hide the confirm button since it's now confirmed
+                    this.style.display = 'none';
+                }
             });
         }
     });

@@ -1,59 +1,74 @@
-# Sports Field Rental Application
+# Sports Field Rental - Aplikasi Booking Lapangan Olahraga
 
-This is a complete web application for booking sports fields with both user and admin functionalities.
+## Deskripsi Proyek
+Aplikasi ini dirancang untuk memudahkan pengguna dalam memesan lapangan olahraga secara online. Dengan tampilan bertema luar angkasa, pengguna dapat dengan mudah melihat ketersediaan lapangan dan melakukan booking sesuai jadwal yang diinginkan.
 
-## Features
+## Fitur Utama
+- Booking lapangan olahraga secara online
+- Tampilan dengan tema luar angkasa yang menarik
+- Fitur pembatalan pesanan sebelum pembayaran
+- Pembayaran melalui e-wallet atau transfer bank dengan nomor 12345678
+- Riwayat booking untuk pelacakan pesanan
 
-### For Users:
-- Registration & login (email / phone number)
-- View field list with search and filter options
-- Check schedules and availability
-- Book fields with time selection
-- Online payment or upload payment proof
-- Booking history tracking
-
-### For Admin:
-- Admin login with authentication
-- Field management (add, edit, delete fields)
-- Schedule and pricing management
-- Payment confirmation system
-- Booking and revenue reports
-
-## Pages Included
-
-- **Home** (`index.html`) - Main landing page
-- **Daftar Lapangan** (`fields.html`) - List of available fields
-- **Detail Lapangan** (`detail.html`) - Detailed view of individual fields
-- **Booking Jadwal** (`booking.html`) - Booking process
-- **Login/Register** (`login.html` & `register.html`) - Authentication
-- **Dashboard User** (`dashboard-user.html`) - User dashboard
-- **Dashboard Admin** (`dashboard-admin.html`) - Admin dashboard
-- **Profile** (`profile.html`) - User profile management
-- **Booking History** (`booking-history.html`) - Booking history for users
-- **Admin Management Pages**:
-  - Field Management (`admin-fields.html`)
-  - Schedule & Pricing (`admin-schedule.html`)
-  - Payment Confirmation (`admin-payments.html`)
-  - Booking Management (`admin-bookings.html`)
-  - Reports (`admin-reports.html`)
-
-## How to Use
-
-1. Open `index.html` in your browser to access the home page
-2. Register as a new user or login with existing credentials:
-   - User: email `user@example.com` with password `password123`
-   - Admin: email `admin@example.com` with password `admin123`
-3. Browse available sports fields and make bookings
-4. For admin functions, login with admin credentials
-
-## Technologies Used
-
+## Teknologi yang Digunakan
 - HTML5
-- CSS3 (with Bootstrap 5)
+- CSS3
+- Bootstrap 5
 - JavaScript
-- Font Awesome for icons
-- Chart.js for admin reports
+- Font Awesome
 
-## Note
+## Fitur-fitur Penting
 
-This is a frontend-only implementation. In a real application, you would need a backend server to handle authentication, data storage, and payment processing.
+### 1. Tampilan Tema Luar Angkasa
+- Warna background gradient dengan nuansa luar angkasa
+- Efek animasi bintang di background
+- Elemen-elemen UI dengan efek glassmorphism
+
+### 2. Hero Section dengan Gambar
+- Gambar lapangan mini soccer ditampilkan di bagian hero
+- Teks "Sewa Lapangan Mini Soccer Terbaik" dengan desain menarik
+
+### 3. Sistem Pembayaran
+- Nomor rekening pembayaran: 12345678
+- Dapat digunakan untuk pembayaran e-wallet dan transfer bank
+- Fitur upload bukti pembayaran
+
+### 4. Fitur Pembatalan Pesanan
+- Pengguna dapat membatalkan pesanan sebelum pembayaran dikonfirmasi
+- Terdapat halaman khusus untuk pembatalan pesanan
+
+### 5. Manajemen Akun
+- Sistem login dan registrasi
+- Hapus fitur login Facebook dan Google
+- Dashboard untuk admin dan pengguna
+
+## Struktur File
+- `index.html` - Halaman utama dengan hero section
+- `booking.html` - Halaman booking lapangan
+- `payment.html` - Halaman pembayaran
+- `cancel-booking.html` - Halaman pembatalan pesanan
+- `login.html` - Halaman login (tanpa fitur Facebook/Google)
+- `booking-history.html` - Riwayat booking
+- `assets/css/` - File-file stylesheet
+  - `style.css` - CSS utama
+  - `space-theme.css` - CSS tema luar angkasa
+- `assets/js/` - File-file JavaScript
+
+## Cara Menggunakan
+1. Buka `index.html` di browser Anda
+2. Pilih menu booking untuk memesan lapangan
+3. Pilih jadwal yang tersedia
+4. Lengkapi data pemesanan
+5. Lakukan pembayaran ke nomor 12345678
+6. Upload bukti pembayaran
+
+## Catatan Pengembangan
+- Semua perubahan telah diterapkan sesuai permintaan
+- Warna tema telah diubah menjadi warna luar angkasa
+- Foto telah ditambahkan di hero section
+- Fitur login Facebook dan Google telah dihapus
+- Fitur pembatalan pesanan telah ditambahkan
+- Informasi pembayaran telah ditambahkan ke berbagai halaman
+
+## Kontributor
+- Tim Pengembang Kelompok Arya

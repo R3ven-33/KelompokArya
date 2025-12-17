@@ -63,6 +63,11 @@ function checkAuthStatus() {
         'admin-bookings.html'
     ];
 
+    // Pages that require owner authentication
+    const ownerProtectedPages = [
+        'dashboard-owner.html'
+    ];
+
     // Special handling for booking page - redirect to login if not logged in
     if (currentPage === 'booking.html' && (!isLoggedIn || isLoggedIn !== 'true')) {
         window.location.href = 'login.html';
@@ -77,15 +82,29 @@ function checkAuthStatus() {
 
     // Check if this is an admin protected page
     if (adminProtectedPages.includes(currentPage)) {
-        if (!isLoggedIn || isLoggedIn !== 'true' || userType !== 'admin') {
+        if (!isLoggedIn || isLoggedIn !== 'true' || (userType !== 'admin' && userType !== 'owner')) {
             window.location.href = 'login.html';
             return false;
         }
     }
 
-    // Check if user is admin and on login page - redirect to admin dashboard
-    if (currentPage === 'login.html' && isLoggedIn === 'true' && userType === 'admin') {
-        window.location.href = 'dashboard-admin.html';
+    // Check if this is an owner protected page
+    if (ownerProtectedPages.includes(currentPage)) {
+        if (!isLoggedIn || isLoggedIn !== 'true' || userType !== 'owner') {
+            window.location.href = 'login.html';
+            return false;
+        }
+    }
+
+    // Check if user is admin/owner and on login page - redirect to appropriate dashboard
+    if (currentPage === 'login.html' && isLoggedIn === 'true') {
+        if (userType === 'owner') {
+            window.location.href = 'dashboard-owner.html';
+        } else if (userType === 'admin') {
+            window.location.href = 'dashboard-admin.html';
+        } else {
+            window.location.href = 'dashboard-user.html';
+        }
         return false;
     }
 
@@ -141,7 +160,7 @@ function updateNavigation(isLoggedIn, userType) {
                 navDropdown.appendChild(dropdownMenu);
             }
 
-            // Different menu for admin vs regular user
+            // Different menu for admin vs owner vs regular user
             if (userType === 'admin') {
                 dropdownMenu.innerHTML = `
                     <a class="dropdown-item" href="dashboard-admin.html">Dashboard Admin</a>
@@ -149,6 +168,15 @@ function updateNavigation(isLoggedIn, userType) {
                     <a class="dropdown-item" href="admin-payments.html">Konfirmasi Pembayaran</a>
                     <hr class="dropdown-divider">
                     <a class="dropdown-item" href="#" id="adminLogoutBtn">Logout</a>
+                `;
+            } else if (userType === 'owner') {
+                dropdownMenu.innerHTML = `
+                    <a class="dropdown-item" href="dashboard-owner.html">Dashboard Owner</a>
+                    <a class="dropdown-item" href="admin-bookings.html">Kelola Booking</a>
+                    <a class="dropdown-item" href="admin-payments.html">Konfirmasi Pembayaran</a>
+                    <a class="dropdown-item" href="admin-reports.html">Laporan Keuangan</a>
+                    <hr class="dropdown-divider">
+                    <a class="dropdown-item" href="#" id="ownerLogoutBtn">Logout</a>
                 `;
             } else {
                 dropdownMenu.innerHTML = `
@@ -179,6 +207,16 @@ function updateNavigation(isLoggedIn, userType) {
                     }
                 });
             }
+
+            const ownerLogoutBtn = document.getElementById('ownerLogoutBtn');
+            if (ownerLogoutBtn) {
+                ownerLogoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (confirm('Apakah Anda yakin ingin logout dari owner?')) {
+                        logout();
+                    }
+                });
+            }
         } else {
             // Show login/register for non-logged in users
             const dropdownMenu = navDropdown.querySelector('.dropdown-menu');
@@ -197,6 +235,8 @@ function updateNavigation(isLoggedIn, userType) {
         if (isLoggedIn) {
             if (userType === 'admin') {
                 accountLink.textContent = 'Admin';
+            } else if (userType === 'owner') {
+                accountLink.textContent = 'Owner';
             } else {
                 accountLink.textContent = userName || 'Akun Saya';
             }
@@ -212,9 +252,7 @@ function redirectToBooking(event) {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
 
     if (!isLoggedIn || isLoggedIn !== 'true') {
-        if (confirm('Anda harus login terlebih dahulu untuk menyewa lapangan. Apakah Anda ingin login sekarang?')) {
-            window.location.href = 'login.html';
-        }
+        window.location.href = 'login.html';
     } else {
         window.location.href = 'booking.html';
     }

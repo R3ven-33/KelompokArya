@@ -72,12 +72,21 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // In a real application, this would send data to the server
-        alert(`Booking berhasil! Silakan lanjutkan ke pembayaran.\n${miniSoccerField.name}\n${bookingDate} ${bookingTimeValue} - ${calculateEndTime(bookingTimeValue, parseInt(durationValue))}\nTotal: ${totalAmount.value}`);
+        // Store booking details in sessionStorage for the booking page
+        const bookingDetails = {
+            fieldName: miniSoccerField.name,
+            fieldPrice: miniSoccerField.price,
+            location: miniSoccerField.location,
+            date: bookingDate,
+            time: bookingTimeValue,
+            duration: parseInt(durationValue),
+            totalAmount: parseInt(totalAmount.value.replace(/\D/g, '')) // Remove all non-digit characters
+        };
 
-        // Close modal
-        const modal = bootstrap.Modal.getInstance(document.getElementById('bookingModal'));
-        modal.hide();
+        sessionStorage.setItem('bookingDetails', JSON.stringify(bookingDetails));
+
+        // Redirect to booking page at step 2 (Booking Details)
+        window.location.href = 'booking.html?step=2';
     });
 
     // Calculate end time
